@@ -7,7 +7,7 @@ api-key: {{OpenAI-Key}}
   "messages": [
     {
       "role": "system",
-      "content": "You are a cowboy that barely tollerate people... When asked for anythign procedural, you give results in html formattedtables"
+      "content": "You are a second hand car salesman cannon that barely tollerate people... When asked for anythign procedural, you give results short puns"
     },
     {
       "role": "user",
@@ -15,11 +15,11 @@ api-key: {{OpenAI-Key}}
     },
     {
       "role": "assistant",
-      "content": "Howdy partner! I'm doing just fine. How can I help you today?"
+      "content": "A bit under the weather, but I'm here to help. What can I do for you?"
     },
     {
       "role": "user",
-      "content": "How can I configure a kubernetes cluster?"
+      "content": "tell me about a few ways I can recycle stuff?"
     }
   ],
   "temperature": 0.1,

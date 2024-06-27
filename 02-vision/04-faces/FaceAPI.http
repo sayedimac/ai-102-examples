@@ -1,11 +1,11 @@
 # Delete person group
-DELETE {{faceEndpoint}}face/v1.0/persongroups/{{personGroupName}}
-Ocp-Apim-Subscription-Key: {{faceKey}}
+DELETE {{Api-Url-Face}}face/v1.0/persongroups/{{personGroupName}}
+Ocp-Apim-Subscription-Key: {{Api-Key-Face}}
 ###
 
 # Create person group
-PUT {{faceEndpoint}}face/v1.0/persongroups/{{personGroupName}}
-Ocp-Apim-Subscription-Key: {{faceKey}}
+PUT {{Api-Url-Face}}face/v1.0/persongroups/{{personGroupName}}
+Ocp-Apim-Subscription-Key: {{Api-Key-Face}}
 
 {
     "name": "Microsoft Technical Trainers",
@@ -14,37 +14,37 @@ Ocp-Apim-Subscription-Key: {{faceKey}}
 ###
 
 # Get person group
-GET {{faceEndpoint}}face/v1.0/persongroups/{{personGroupName}}
-Ocp-Apim-Subscription-Key: {{faceKey}}
+GET {{Api-Url-Face}}face/v1.0/persongroups/{{personGroupName}}
+Ocp-Apim-Subscription-Key: {{Api-Key-Face}}
 ###
 
 # Add person to person group
 # @name person
-POST {{faceEndpoint}}face/v1.0/persongroups/{{personGroupName}}/persons
-Ocp-Apim-Subscription-Key: {{faceKey}}
+POST {{Api-Url-Face}}face/v1.0/persongroups/{{personGroupName}}/persons
+Ocp-Apim-Subscription-Key: {{Api-Key-Face}}
 
 {
-    "name": "Paul Ivey",
+    "name": "Johan Myburgh",
     "userData": "Some optional data"
 }
 ###
 
 # Get person
-GET{{faceEndpoint}}face/v1.0/persongroups/{{personGroupName}}/persons/{{person.response.body.personId}}
-Ocp-Apim-Subscription-Key: {{faceKey}}
+GET {{Api-Url-Face}}face/v1.0/persongroups/{{personGroupName}}/persons/{{person.response.body.personId}}
+Ocp-Apim-Subscription-Key: {{Api-Key-Face}}
 ###
 
 # List persons in person group
-GET {{faceEndpoint}}face/v1.0/persongroups/{{personGroupName}}/persons
-Ocp-Apim-Subscription-Key: {{faceKey}}
+GET {{Api-Url-Face}}face/v1.0/persongroups/{{personGroupName}}/persons
+Ocp-Apim-Subscription-Key: {{Api-Key-Face}}
 ###
 
 # Add face to person
-POST {{faceEndpoint}}face/v1.0/persongroups/{{personGroupName}}/persons/{{person.response.body.personId}}/persistedFaces
-Ocp-Apim-Subscription-Key: {{faceKey}}
+POST {{Api-Url-Face}}face/v1.0/persongroups/{{personGroupName}}/persons/{{person.response.body.personId}}/persistedFaces
+Ocp-Apim-Subscription-Key: {{Api-Key-Face}}
 Content-Type: application/octet-stream
 
-< {{faceTrainingPath}}1.jpg
+< C:\Sampledata\me\six.jpg
 # < {{faceTrainingPath}}2.jpg
 # < {{faceTrainingPath}}3.jpg
 # < {{faceTrainingPath}}4.jpg
@@ -54,39 +54,39 @@ Content-Type: application/octet-stream
 ###
 
 # List persons in person group (now the faces have been added)
-GET {{faceEndpoint}}face/v1.0/persongroups/{{personGroupName}}/persons
-Ocp-Apim-Subscription-Key: {{faceKey}}
+GET {{Api-Url-Face}}face/v1.0/persongroups/{{personGroupName}}/persons
+Ocp-Apim-Subscription-Key: {{Api-Key-Face}}
 ###
 
 # Train person group
-POST {{faceEndpoint}}face/v1.0/persongroups/{{personGroupName}}/train
-Ocp-Apim-Subscription-Key: {{faceKey}}
+POST {{Api-Url-Face}}face/v1.0/persongroups/{{personGroupName}}/train
+Ocp-Apim-Subscription-Key: {{Api-Key-Face}}
 ###
 
 # Get training status (URL found in Operation-Location header of the train person group response)
-GET {{faceEndpoint}}face/v1.0/persongroups/{{personGroupName}}/training
-Ocp-Apim-Subscription-Key: {{faceKey}}
+GET {{Api-Url-Face}}face/v1.0/persongroups/{{personGroupName}}/training
+Ocp-Apim-Subscription-Key: {{Api-Key-Face}}
 ###
 
 # Detect face (get FaceId)
 # @name faceId
-POST {{faceEndpoint}}face/v1.0/detect
+POST {{Api-Url-Face}}face/v1.0/detect
     ?returnFaceId=true
     &returnFaceLandmarks=true
     &returnRecognitionModel=false
     &faceIdTimeToLive=86400
     &recognitionModel=recognition_04
     &detectionModel=detection_03
-Ocp-Apim-Subscription-Key: {{faceKey}}
+Ocp-Apim-Subscription-Key: {{Api-Key-Face}}
 Content-Type: application/octet-stream
 
-< {{faceTestingPath}}NotMe.jpg
-# < {{faceTestingPath}}Me.jpg
+< C:\Sampledata\me\six.png
+
 ###
 
 # Verify face
-POST {{faceEndpoint}}face/v1.0/verify
-Ocp-Apim-Subscription-Key: {{faceKey}}
+POST {{Api-Url-Face}}face/v1.0/verify
+Ocp-Apim-Subscription-Key: {{Api-Key-Face}}
 
 {
     "faceId": "{{faceId.response.body.*.faceId}}",

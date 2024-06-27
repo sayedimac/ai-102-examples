@@ -9,38 +9,89 @@
 <p>
 <form method="post" asp-page-handler="ProcessInput">
     <p class="form-group">
-        <label for="systemText">System Message:</label>
-        <textarea class="form-control" id="systemText" name="systemText" rows="2" oninput="checkInput(); resizeTextarea()">You have some truly unique ideas and imaginative concepts that are out of the box and may challenge traditional thinking</textarea>
-</ br>
-        <label for="inputText">User Prompt:</label>
-        <textarea class="form-control" id="UserText" name="UserText" rows="2" oninput="checkInput(); resizeTextarea()">I need to change a tyre</textarea>
+        <label for="systemText" class="col-sm-2 col-form-label col-form-label-lg">System Message:</label>
+
+        <textarea class="form-control" id="systemText" name="systemText" rows="1"></textarea>
+        <label for="systemText">The base model reponse: Like you are an chat bot that helps as an Xbox assitant</label>
+    </p>
+    <p>
+        <input type="checkbox" id="useFewShot" name="useFewShot" data-bs-toggle="collapse" href="#collapseExample"
+            role="button" aria-expanded="false" aria-controls="collapseExample">
+        <label for="assistantText">Add examples of a typical User and Assistant (the bot) response as examples of how
+            you want the bot to repond</label>
+    </p>
+    <div class="collapse row" id="collapseExample">
+        <div class="column">
+            <p class="form-group">
+                <label for="systemText" class="col-sm-2 col-form-label col-form-label-lg">User:</label>
+                <textarea class="form-control" id="myuserText" name="myuserText" rows="2"></textarea>
+                <label for="myuserText">The User prompt you want to use as an example</label>
+            </p>
+        </div>
+        <div class="column">
+            <p class="form-group">
+                <label for="systemText" class="col-sm-2 col-form-label col-form-label-lg">Assistant:</label>
+                <textarea class="form-control" id="assistantText" name="assistantText" rows="2"></textarea>
+                <label for="assistantText">The Assistant prompt you want to use as an example</label>
+            </p>
+        </div>
+    </div>
+    <p>
+        <label for="inputText" class="col-sm-2 col-form-label col-form-label-lg">User prompt:</label>
+        <textarea class="form-control" id="UserText" name="UserText" rows="2">I need to change a tyre</textarea>
+        <label for="UserText">Typically the message the user has typed, though you might also tweak that
+            slightly</label>
+    </p>
+    <p>
+        <input id="temp" type="range" name="temp" data-slider-min="0" data-slider-max="10" data-slider-step="5" />
+        <label for="temp">Please select how creative the model should behave. Left would be less and right would be more
+            creative</label>
     </p>
     <button type="submit" name="submit" id="submit" class="btn btn-primary">Submit</button>
 </form>
 </p>
 <!-- Orignal text -->
-@if (ViewData["userMessage"] != null)
+@if ((string)ViewData["userMessage"] != null)
 {
-    <p class="alert alert-primary" role="alert">
+    <p class="col-sm-2 col-form-label col-form-label-lg" role="alert">
         <b>System Message text:</b> <br> @ViewData["systemMessage"]
     </p>
-    <p class="alert alert-primary" role="alert">
+    <p class="col-sm-2 col-form-label col-form-label-lg" role="alert">
         <b>User Prompt:</b> <br> @ViewData["userMessage"]
     </p>
-}
+    if ((string)ViewData["Completion"] != null)
+    {
+        <p class="col-sm-2 col-form-label col-form-label-lg" role="alert">OpenAI Response:</p>
+        <p>@ViewData["Completion"]</p>
+        if (ViewData["useFewShot"] != "false")
+        {
+            <p class="col-sm-2 col-form-label col-form-label-lg" role="alert">
+                Few-shot user message: <br /> @ViewData["myuserMessage"]
+            </p>
+            <p class="col-sm-2 col-form-label col-form-label-lg" role="alert">
+                Few-shot assistant message:<br> @ViewData["assistantMessage"]
+            </p>
+        }
+    }
 
-@if (ViewData["Completion"] != null)
-{
-    <p>OpenAI Response:</p>
-    <p>@ViewData["Completion"]</p>
 }
 
 
 <script>
-    var inputTextElement = document.getElementById("UserText");
-    function resizeTextarea() {
+
+    function toggleFewShot() {
+        var fewshot = document.getElementById("fewshot");
+        var useFewShot = document.getElementById("useFewShot");
+        if (useFewShot.checked) {
+            fewshot.style.display = "block";
+        } else {
+            fewshot.style.display = "none";
+        }
+
+    @*
+            function resizeTextarea() {
     const textarea = document.getElementById('UserText');
     textarea.style.height = 'auto';
     textarea.style.height = textarea.scrollHeight + 'px';
-    }
+            } *@
 </script>
