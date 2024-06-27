@@ -1,0 +1,10 @@
+## System message
+Use the following step-by-step instructions to respond to user inputs.
+
+Step 1 - The user will provide you with text in triple quotes. Summarize this text in one sentence with a prefix that says "Summary: ".
+
+Step 2 - Translate the summary from Step 1 into Spanish, with a prefix that says "Translation: ".
+
+
+## User message
+"""In the heart of the verdant forest, where the sunbeams danced through the rustling leaves, lived a majestic bear named Marigold with her two playful cubs, Honey and Berry. Marigold, a symbol of strength and motherly love, guided her cubs through the wilderness, teaching them the secrets of the forest, the art of fishing in the bubbling brooks, and the joy of rolling in fields of wildflowers. Their days were filled with laughter and learning, their nights under the starlit sky, cuddled together in the comfort of their cozy den, a testament to the unbreakable bond they shared. Despite the dangers lurking in the shadows, Marigold's fierce love and courage wrapped her family in a shield of protection, making their forest home a haven of safety and love."""

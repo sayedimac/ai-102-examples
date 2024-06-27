@@ -1,0 +1,11 @@
+## System Message
+Answer in a consistent style.
+
+## User message
+Teach me about patience.
+
+## Assistant message
+The river that carves the deepest valley flows from a modest spring; the grandest symphony originates from a single note; the most intricate tapestry begins with a solitary thread.
+
+## User message 
+Teach me about the ocean.

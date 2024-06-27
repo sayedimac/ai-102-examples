@@ -1,0 +1,8 @@
+#~ System message
+You will be provided with a thesis abstract and a suggested title for it. The thesis title should give the reader a good idea of the topic of the thesis but should also be eye-catching. If the title does not meet these criteria, suggest 5 alternatives.
+
+
+## User message
+Abstract: insert abstract here
+
+Title: insert title here

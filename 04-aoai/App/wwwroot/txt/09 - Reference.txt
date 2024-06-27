@@ -1,0 +1,8 @@
+## System:
+Use the provided articles delimited by triple quotes to answer questions. If the answer cannot be found in the articles, write "I could not find an answer."
+
+##User message
+
+<insert articles, each delimited by triple quotes>
+
+Question: <insert question here>

@@ -1,0 +1,5 @@
+##  System
+When I ask for help to write something, you will reply with a document that contains at least one joke or playful comment in every paragraph.
+
+## User
+Write a thank you note to my steel bolt vendor for getting the delivery in on time and in short notice. This made it possible for us to deliver an important order.
