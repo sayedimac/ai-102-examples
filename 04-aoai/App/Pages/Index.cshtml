@@ -1,7 +1,5 @@
-
 @page
 @model IndexModel
-@using Newtonsoft.Json
 @{
 
     ViewData["Title"] = "OpenAI Example";
@@ -21,18 +19,18 @@
 <!-- Orignal text -->
 @if (ViewData["userMessage"] != null)
 {
-    <p class="alert alert-primary" role="alert">
-        <b>System Message text:</b> <br> @ViewData["systemMessage"]
-    </p>
-    <p class="alert alert-primary" role="alert">
-        <b>User Prompt:</b> <br> @ViewData["userMessage"]
-    </p>
+        <p class="alert alert-primary" role="alert">
+            <b>System Message text:</b> <br> @ViewData["systemMessage"]
+        </p>
+        <p class="alert alert-primary" role="alert">
+            <b>User Prompt:</b> <br> @ViewData["userMessage"]
+        </p>
 }
 
 @if (ViewData["Completion"] != null)
 {
-    <p>OpenAI Response:</p>
-    <p>@ViewData["Completion"]</p>
+        <p>OpenAI Response:</p>
+        <p>@Html.Raw(ViewData["Completion"])</p>
 }
 
 

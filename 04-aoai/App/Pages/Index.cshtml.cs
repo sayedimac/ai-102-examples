@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Azure;
-
-// Add Azure OpenAI package
 using Azure.AI.OpenAI;
+using Markdig;
 
 namespace App.Pages;
 
@@ -13,7 +12,7 @@ public class IndexModel : PageModel
     private readonly string _serviceKey;
     private readonly string _serviceEndpoint;
     private readonly string _serviceDeployment;
-    
+
     public IndexModel(IConfiguration configuration)
     {
         _configuration = configuration;
@@ -27,7 +26,7 @@ public class IndexModel : PageModel
 
         // Process the input text
         string userPrompt = UserText;
-        string systemPrompt = SystemText;
+        string systemPrompt = SystemText + " You ALWAYS return Markdown (MD) because all your results would be rendered in a browser.";
 
         // Set the original text to output
         ViewData["systemMessage"] = systemPrompt;
@@ -35,7 +34,7 @@ public class IndexModel : PageModel
 
         // Create a new OpenAI client
         OpenAIClient client = new(new Uri(_serviceEndpoint), new AzureKeyCredential(_serviceKey));
-        
+
         // Create a new chat completions options object
         var chatCompletionsOptions = new ChatCompletionsOptions()
         {
@@ -54,12 +53,12 @@ public class IndexModel : PageModel
 
         ChatCompletions completions = response.Value;
         string completion = completions.Choices[0].Message.Content;
-        ViewData["Completion"] = completion;
+        ViewData["Completion"] = Markdig.Markdown.ToHtml(completion);
         return Page();
     }
 
     public void OnGet()
     {
-        
+
     }
 }
