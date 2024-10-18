@@ -1,0 +1,58 @@
+@page
+@model IndexModel
+@{
+
+    ViewData["Title"] = "OpenAI Example";
+}
+<form method="post" asp-page-handler="ProcessInput">
+    <p class="form-group">
+        <label for="systemText">System Message:</label>
+        <textarea class="form-control" id="systemText" name="systemText" rows="2"
+            oninput="checkInput(); resizeTextarea()">You are an agent for Margies Travel. You try to always provide solid travel advice that benefit your clients</textarea>
+        <br />
+        <label for="inputText">User Prompt:</label>
+        <textarea class="form-control" id="UserText" name="UserText" rows="2"
+            oninput="checkInput(); resizeTextarea()">I need to stay in London any ideas?</textarea>
+        <button type="submit" name="submit" id="submit" class="btn btn-primary">Submit</button>
+    </p>
+</form>
+<!-- Original text -->
+@if (ViewData["userMessage"] != null)
+{
+    <p class="alert alert-primary" role="alert">
+        <b>System Message text:</b> <br> @ViewData["systemMessage"]
+    </p>
+    <p class="alert alert-primary" role="alert">
+        <b>User Prompt:</b> <br> @ViewData["userMessage"]
+    </p>
+}
+
+@if (ViewData["Completion"] != null)
+{
+    <p>OpenAI Response:</p>
+    <p>@Html.Raw(ViewData["Completion"])</p>
+    <p>Intent: <br />@Html.Raw(ViewData["Intent"])</p>
+
+}
+@* Render the Citations list as a list of links *@
+@if (ViewData["Citations"] != null)
+{
+    <p>Citations:</p>
+    <ol>
+        @foreach (var citation in ViewData["Citations"] as List<string>)
+        {
+            <li>@Html.Raw(citation)</li>
+        }
+    </ol>
+}
+
+
+
+<script>
+    var inputTextElement = document.getElementById("UserText");
+    function resizeTextarea() {
+        const textarea = document.getElementById('UserText');
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+    }
+</script>
