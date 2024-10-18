@@ -1,0 +1,23 @@
+# CLU
+POST {{languageEndpoint}}language/:analyze-conversations?api-version=2022-10-01-preview
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{languageKey}}
+
+{
+"kind": "Conversation",
+    "analysisInput": {
+      "conversationItem": {
+        "id": "1",
+        "text": "Do you know what the date's going to be on Sunday?",
+        "modality": "text",
+        "language": "en",
+        "participantId": "1"
+      }
+    },
+    "parameters": {
+      "projectName": "{{CLUProject}}",
+      "verbose": true,
+      "deploymentName": "{{CLUDeployment}}",
+      "stringIndexType": "TextElement_V8"
+    }
+}
