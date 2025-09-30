@@ -8,6 +8,9 @@ var roleDefinitionId = 'ba92f5b4-2d11-453d-a403-e96b0029c9fe' // Storage Blob Da
 resource search 'Microsoft.Search/searchServices@2024-03-01-preview' = {
   name: 'search${unique}'
   location: location
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   sku: {
     name: 'basic'
   }
@@ -23,6 +26,9 @@ resource search 'Microsoft.Search/searchServices@2024-03-01-preview' = {
 resource str 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   name: 'str${unique}'
   location: location
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   kind: 'StorageV2'
   sku: {
     name: 'Standard_LRS'

@@ -9,6 +9,9 @@ resource str 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   name: 'str${unique}'
   location: location
   kind: 'StorageV2'
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   sku: {
     name: 'Standard_LRS'
   }
@@ -50,6 +53,9 @@ resource speech 'Microsoft.CognitiveServices/accounts@2023-10-01-preview' = {
   name: 'speech${unique}'
   location: location
   kind: 'SpeechServices'
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   sku: {
     name: 'S0'
   }
@@ -63,6 +69,9 @@ resource translation 'Microsoft.CognitiveServices/accounts@2023-10-01-preview' =
   name: 'translate${unique}'
   location: 'global'
   kind: 'TextTranslation'
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   sku: {
     name: 'S1'
   }
@@ -75,6 +84,9 @@ resource translation 'Microsoft.CognitiveServices/accounts@2023-10-01-preview' =
 resource search 'Microsoft.Search/searchServices@2024-03-01-preview' = {
   name: 'search${unique}'
   location: location
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   sku: {
     name: 'basic'
   }
@@ -91,6 +103,9 @@ resource search 'Microsoft.Search/searchServices@2024-03-01-preview' = {
 resource language 'Microsoft.CognitiveServices/accounts@2023-10-01-preview' = {
   name: 'language${unique}'
   location: location
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   sku: {
     name: 'S'
   }
