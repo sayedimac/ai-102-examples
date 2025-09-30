@@ -5,7 +5,7 @@ name: ai-102-demos
 infra:
   provider: "bicep"
   path: "infra"
-  module: main.bicep
+  module: main
 
 hooks:
   preprovision:
