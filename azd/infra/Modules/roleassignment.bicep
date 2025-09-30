@@ -15,12 +15,22 @@ resource extVault 'Microsoft.KeyVault/vaults@2023-07-01' existing = if (vault) {
   name: resName
 }
 
-// Configure the service principal with the required RBAC role
-resource role 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+// Configure the service principal with the required RBAC role for Storage Account
+resource roleStorage 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (storageAccount) {
   name: roleAssignmentName
   properties: {
     principalId: principalId
     roleDefinitionId: resourceId('Microsoft.Authorization/roleDefinitions', roleDefinitionId)
   }
-  scope: storageAccount ? extStr : extVault
+  scope: extStr
+}
+
+// Configure the service principal with the required RBAC role for Key Vault
+resource roleVault 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (vault && !storageAccount) {
+  name: roleAssignmentName
+  properties: {
+    principalId: principalId
+    roleDefinitionId: resourceId('Microsoft.Authorization/roleDefinitions', roleDefinitionId)
+  }
+  scope: extVault
 }

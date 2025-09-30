@@ -38,7 +38,6 @@ public class HomeController : Controller
             var fileName = Path.GetFileName(model.ImageFile.FileName); // Get the file name of the uploaded image
             var filePath = Path.Combine(_env.WebRootPath, "images", fileName); // Get the file path to save the image in the wwwroot/images folder
             var GenderNeutral = model.GenderNeutral;
-            var RemoveBackground = model.RemoveBackground;
             using (var fileStream = new FileStream(filePath, FileMode.Create)) // Create a file stream to write the image data
             {
                 await model.ImageFile.CopyToAsync(fileStream); // Copy the image data to the file stream
@@ -65,7 +64,8 @@ public class HomeController : Controller
                 VisualFeatures.Caption |
                 VisualFeatures.DenseCaptions |
                 VisualFeatures.Tags |
-                VisualFeatures.Read,
+                VisualFeatures.Read |
+                VisualFeatures.Objects,
                 analysisOptions
             );
 
@@ -100,6 +100,26 @@ public class HomeController : Controller
                 ViewBag.Tags = tags;
             }
 
+            // Get detected objects
+            if (result.Objects != null)
+            {
+                var objects = new List<string>();
+                foreach (var obj in result.Objects.Values)
+                {
+                    // Each DetectedObject has a Tags property, which is a list of DetectedTag(s)
+                    if (obj.Tags != null && obj.Tags.Count > 0)
+                    {
+                        var tag = obj.Tags[0];
+                        objects.Add($"{tag.Name} (confidence: {tag.Confidence:0.0000})");
+                    }
+                    else
+                    {
+                        objects.Add("Unknown object");
+                    }
+                }
+                ViewBag.Objects = objects;
+            }
+
             // Get image text
             if (result.Read != null)
             {
@@ -107,51 +127,13 @@ public class HomeController : Controller
                 foreach (var block in result.Read.Blocks)
                 {
                     foreach (var line in block.Lines)
-                    
-                    lines.Add($"{line.Text}");
+                        lines.Add($"{line.Text}");
                 }
                 ViewBag.Lines = lines;
-            }
-
-            if(RemoveBackground)
-            {
-                string outputImageFile = $"{Path.GetFileNameWithoutExtension(filePath)}_background_removed.png";
-                string newImagePath = Url.Content($"/images/{outputImageFile}");
-                await BackgroundRemoval(filePath, newImagePath, outputImageFile);
             }
 
         }
         return View(model); // Return the index view with the model
  
     }
-    public async Task BackgroundRemoval(string filePath, string newImagePath, string outputImageFile)
-    {
-        string apiVersion = "2023-02-01-preview";
-        string mode = "backgroundRemoval";
-        string url = $"{_visionEndpoint}computervision/imageanalysis:segment?overload=stream&api-version={apiVersion}&mode={mode}";
-
-        using var client = new HttpClient();
-        client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", _visionKey);
-
-        using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-        var byteData = new byte[stream.Length];
-        await stream.ReadAsync(byteData.AsMemory(0, (int)stream.Length));
-
-        using var content = new ByteArrayContent(byteData);
-        content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-        var response = await client.PostAsync(url, content);
-
-        if(response.IsSuccessStatusCode)
-        {
-            using var fileStream = new FileStream(Path.Combine(_env.WebRootPath, "images", outputImageFile), FileMode.Create);
-            fileStream.Write(await response.Content.ReadAsByteArrayAsync());
-
-            ViewBag.NewImagePath = newImagePath;
-        }
-        else
-        {
-            Console.WriteLine("It didn't work");
-        }
-    }
-
 }
