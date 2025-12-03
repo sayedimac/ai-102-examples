@@ -13,6 +13,9 @@ resource docIntel 'Microsoft.CognitiveServices/accounts@2023-10-01-preview' = {
   sku: {
     name: 'S0'
   }
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   properties: {
     publicNetworkAccess: 'Enabled'
   }
@@ -23,6 +26,9 @@ resource str 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   name: 'str${unique}'
   location: location
   kind: 'StorageV2'
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   sku: {
     name: 'Standard_LRS'
   }

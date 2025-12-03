@@ -10,6 +10,9 @@ var roleDefinitionId = 'ba92f5b4-2d11-453d-a403-e96b0029c9fe' // Storage Blob Da
 resource customTraining 'Microsoft.CognitiveServices/accounts@2023-10-01-preview' = if (customVision) {
   name: 'train${unique}'
   location: location
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   kind: 'CustomVision.Training'
   sku: {
     name: 'S0'
@@ -21,6 +24,9 @@ resource customTraining 'Microsoft.CognitiveServices/accounts@2023-10-01-preview
 resource customPrediction 'Microsoft.CognitiveServices/accounts@2023-10-01-preview' = if (customVision) {
   name: 'predict${unique}'
   location: location
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   kind: 'CustomVision.Prediction'
   sku: {
     name: 'S0'
@@ -34,6 +40,9 @@ resource customPrediction 'Microsoft.CognitiveServices/accounts@2023-10-01-previ
 resource str 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   name: 'str${unique}'
   location: location
+  tags: {
+    SecurityControl: 'Ignore'
+  }  
   kind: 'StorageV2'
   sku: {
     name: 'Standard_LRS'
@@ -74,10 +83,16 @@ module roleAssignment 'roleassignment.bicep' = {
 resource appInsightsWorkspace 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
   name: 'appinsights${unique}'
   location: location
+  tags: {
+    SecurityControl: 'Ignore'
+  }
 }
 resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   name: 'appinsights${unique}'
   location: location
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   kind: 'web'
   properties: {
     Application_Type: 'web'
@@ -87,6 +102,9 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
 resource vault 'Microsoft.KeyVault/vaults@2023-07-01' = {
   name: 'kv${unique}'
   location: location
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   properties: {
     sku: {
       family: 'A'
@@ -107,6 +125,9 @@ resource vault 'Microsoft.KeyVault/vaults@2023-07-01' = {
 resource amlWorkspace 'Microsoft.MachineLearningServices/workspaces@2024-01-01-preview' = {
   name: 'aml${unique}'
   location: location
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   sku: {
     name: 'Basic'
     tier: 'Basic'
@@ -125,6 +146,9 @@ resource amlWorkspace 'Microsoft.MachineLearningServices/workspaces@2024-01-01-p
 resource computerVision 'Microsoft.CognitiveServices/accounts@2023-10-01-preview' = {
   name: 'vision${unique}'
   location: location
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   kind: 'ComputerVision'
   sku: {
     name: 'S1'
@@ -138,6 +162,9 @@ resource computerVision 'Microsoft.CognitiveServices/accounts@2023-10-01-preview
 resource face 'Microsoft.CognitiveServices/accounts@2023-10-01-preview' = {
   name: 'face${unique}'
   location: location
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   kind: 'Face'
   sku: {
     name: 'S0'

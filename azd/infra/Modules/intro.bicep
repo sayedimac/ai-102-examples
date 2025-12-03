@@ -13,6 +13,9 @@ resource account 'Microsoft.CognitiveServices/accounts@2023-10-01-preview' = {
   sku: {
     name: 'S'
   }
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   properties: {
     publicNetworkAccess: 'Enabled'
   }
@@ -22,6 +25,9 @@ resource account 'Microsoft.CognitiveServices/accounts@2023-10-01-preview' = {
 resource vault 'Microsoft.KeyVault/vaults@2023-07-01' = {
   name: 'kv${unique}'
   location: location
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   properties: {
     enableRbacAuthorization: true
     sku: {

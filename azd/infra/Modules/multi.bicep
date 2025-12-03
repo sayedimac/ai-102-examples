@@ -7,6 +7,9 @@ resource multi 'Microsoft.CognitiveServices/accounts@2023-10-01-preview' = {
   name: 'multi${unique}'
   location: location
   kind: 'CognitiveServices'
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   sku: {
     name: 'S0'
   }
